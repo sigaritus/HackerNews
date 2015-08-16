@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">VDaily</string>
+    <string name="app_name">HackerNews</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <array name="tab_name">
+        <item>Top Stories</item>
+        <item>New Stories</item>
+    </array>
 </resources>
