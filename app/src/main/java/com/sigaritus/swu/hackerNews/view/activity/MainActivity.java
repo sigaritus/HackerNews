@@ -1,11 +1,16 @@
 package com.sigaritus.swu.hackerNews.view.activity;
 
 
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +20,8 @@ import com.sigaritus.swu.hackerNews.entity.Story;
 import com.sigaritus.swu.hackerNews.serviceAdapter.StoryRESTAdapter;
 import com.sigaritus.swu.hackerNews.R;
 import com.sigaritus.swu.hackerNews.view.adapter.NewAndTopFragmentAdapter;
+import com.sigaritus.swu.hackerNews.view.fragment.NewStoryFragment;
+import com.sigaritus.swu.hackerNews.view.fragment.TopStoryFragment;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -23,70 +30,69 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
 
     ViewPager pager;
-    Callback<Story> callback = new Callback<Story>() {
-        @Override
-        public void success(Story story, Response response) {
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    String[] tab_names ;
 
-        }
-
-        @Override
-        public void failure(RetrofitError error) {
-            Log.i("fail-------",error.toString());
-        }
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        ActionBar actionBar = this.getSupportActionBar();
-        String[] tab_names = getResources().getStringArray(R.array.tab_name);
+
+        initViews();
+
+
+
+    }
+
+    private void initViews(){
+
         pager = (ViewPager)findViewById(R.id.pager);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        tab_names = getResources().getStringArray(R.array.tab_name);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
 
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar actionBar = this.getSupportActionBar();
 
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            @Override
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                pager.setCurrentItem(tab.getPosition());
-            }
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-            @Override
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout, toolbar, R.string.open, R.string.close);
 
-            }
+        mActionBarDrawerToggle.syncState();
 
-            @Override
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
-            }
-        };
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-        for (int i = 0; i < 2; i++) {
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(tab_names[i])
-                            .setTabListener(tabListener));
-        }
-
-        pager.setAdapter(new NewAndTopFragmentAdapter(getSupportFragmentManager()));
-
-        pager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        getSupportActionBar().setSelectedNavigationItem(position);
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        return true;
                     }
                 });
 
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        if (pager != null) {
+            setupViewPager(pager);
+        }
 
-        StoryRESTAdapter.storiesInfo("10007254.json",callback);
+        tabLayout.setupWithViewPager(pager);
 
+    }
 
+    private void setupViewPager(ViewPager pager) {
+        NewAndTopFragmentAdapter adapter = new NewAndTopFragmentAdapter(getSupportFragmentManager());
+        adapter.addFragment(new TopStoryFragment(),tab_names[0] );
+        adapter.addFragment(new NewStoryFragment(), tab_names[1]);
+        pager.setAdapter(adapter);
     }
 
     @Override

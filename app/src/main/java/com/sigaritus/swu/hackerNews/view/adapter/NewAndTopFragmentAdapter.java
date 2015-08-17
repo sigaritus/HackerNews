@@ -8,13 +8,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.sigaritus.swu.hackerNews.view.fragment.NewStoryFragment;
 import com.sigaritus.swu.hackerNews.view.fragment.TopStoryFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2015/8/16.
  */
 public class NewAndTopFragmentAdapter extends FragmentPagerAdapter {
+    private final List<Fragment> mFragments = new ArrayList<>();
+    private final List<String> mFragmentTitles = new ArrayList<>();
 
     public NewAndTopFragmentAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    public void addFragment(Fragment fragment, String title) {
+        mFragments.add(fragment);
+        mFragmentTitles.add(title);
     }
 
     @Override
@@ -22,14 +32,13 @@ public class NewAndTopFragmentAdapter extends FragmentPagerAdapter {
         if (position==0) {
             Fragment fragment = new TopStoryFragment();
             Bundle args = new Bundle();
-            // Our object is just an integer :-P
+
 
             fragment.setArguments(args);
             return fragment;
         }else if (position==1){
             Fragment fragment = new NewStoryFragment();
             Bundle args = new Bundle();
-            // Our object is just an integer :-P
 
             fragment.setArguments(args);
             return fragment;
@@ -44,6 +53,6 @@ public class NewAndTopFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
+        return mFragmentTitles.get(position);
     }
 }
