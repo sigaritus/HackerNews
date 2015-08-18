@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sigaritus.swu.hackerNews.entity.Story;
 import com.sigaritus.swu.hackerNews.serviceAdapter.StoryRESTAdapter;
@@ -68,15 +69,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(mActionBarDrawerToggle);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        drawerLayout.closeDrawers();
-                        return true;
-                    }
-                });
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -86,6 +81,32 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(pager);
 
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        switch (menuItem.getItemId()){
+                            case R.id.nav_home:
+                                break;
+                            case R.id.nav_ask:
+                                Toast.makeText(MainActivity.this,"ask",Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.nav_show:
+
+                                break;
+                            case R.id.nav_job:
+
+                                break;
+
+                        }
+                        drawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
     }
 
     private void setupViewPager(ViewPager pager) {

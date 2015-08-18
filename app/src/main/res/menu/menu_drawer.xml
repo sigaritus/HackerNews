@@ -1,17 +1,35 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_info_details"
-        android:title="info_details"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_info_details"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menu_share"
-        android:title="share"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_share"/>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_white_36dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_ask"
+            android:icon="@drawable/ic_poll_white_36dp"
+            android:title="ask" />
+        <item
+            android:id="@+id/nav_show"
+            android:icon="@drawable/ic_description_white_36dp"
+            android:title="show" />
+        <item
+            android:id="@+id/nav_job"
+            android:icon="@drawable/ic_work_white_36dp"
+            android:title="job" />
+    </group>
 
-    <item android:id="@+id/menu_agenda"
-        android:title="agenda"
-        android:checked="true"
-        android:icon="@android:drawable/ic_menu_agenda"/>
+    <item android:title=" ">
+        <menu>
+            <item
+                android:icon="@drawable/ic_share_white_36dp"
+                android:id="@+id/nav_share"
+                android:title="share" />
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_settings_white_36dp"
+                android:title="settings" />
+        </menu>
+    </item>
+
 </menu>
