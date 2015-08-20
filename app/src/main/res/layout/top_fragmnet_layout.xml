@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/top_stories_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/top_text"
-        />
+        android:layout_height="wrap_content">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top_stories_list"
+       />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

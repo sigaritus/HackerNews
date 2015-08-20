@@ -21,8 +21,7 @@ public class NewStoryFragment extends Fragment{
         View rootView = inflater.inflate(
                 R.layout.top_fragmnet_layout, container, false);
         Bundle args = getArguments();
-        ((TextView) rootView.findViewById(R.id.top_text)).setText(
-                "goodbye");
+
         return rootView;
     }
 }
