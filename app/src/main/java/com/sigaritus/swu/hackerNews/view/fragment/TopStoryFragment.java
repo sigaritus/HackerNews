@@ -13,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sigaritus.swu.hackerNews.R;
+import com.sigaritus.swu.hackerNews.dao.IDdao;
+import com.sigaritus.swu.hackerNews.dao.StoryDao;
+import com.sigaritus.swu.hackerNews.entity.ID;
 import com.sigaritus.swu.hackerNews.entity.Story;
-import com.sigaritus.swu.hackerNews.entity.XIDs;
+import com.sigaritus.swu.hackerNews.network.DataEngine;
 import com.sigaritus.swu.hackerNews.service.StoriesIDService;
 import com.sigaritus.swu.hackerNews.serviceAdapter.StoriesIDRESTAdapter;
 import com.sigaritus.swu.hackerNews.serviceAdapter.StoryRESTAdapter;
@@ -36,11 +39,8 @@ import retrofit.mime.TypedInput;
  */
 public class TopStoryFragment extends Fragment {
 
-
-
     RecyclerView storyLv;
     List<Story> storyList;
-
 
     @Nullable
     @Override
@@ -52,15 +52,11 @@ public class TopStoryFragment extends Fragment {
 
         storyLv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        storyList = new ArrayList<Story>();
-
-
-//        StoriesIDRESTAdapter.getStoriesID("pretty",callback);
-
-        Log.i("--list",""+storyList.size());
-
-
+        storyLv.setAdapter(new TopStroyListAdapter(getActivity(), StoryDao.getStoryData()));
 
         return rootView;
     }
+
+
+
 }

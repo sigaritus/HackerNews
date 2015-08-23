@@ -17,12 +17,16 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sigaritus.swu.hackerNews.dao.IDdao;
 import com.sigaritus.swu.hackerNews.entity.Story;
+import com.sigaritus.swu.hackerNews.network.DataEngine;
 import com.sigaritus.swu.hackerNews.serviceAdapter.StoryRESTAdapter;
 import com.sigaritus.swu.hackerNews.R;
 import com.sigaritus.swu.hackerNews.view.adapter.NewAndTopFragmentAdapter;
 import com.sigaritus.swu.hackerNews.view.fragment.NewStoryFragment;
 import com.sigaritus.swu.hackerNews.view.fragment.TopStoryFragment;
+
+import org.litepal.crud.DataSupport;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -41,9 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        initDatas();
+
         initViews();
 
+    }
 
+    private void initDatas() {
+
+        DataEngine.getTopStoryIDList();
+//        DataEngine.getStoryList(IDdao.getID());
 
     }
 

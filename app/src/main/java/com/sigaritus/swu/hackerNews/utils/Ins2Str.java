@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Administrator on 2015/8/19.
  */
 public class Ins2Str {
-    public static List Inputstr2Str_list(InputStream in,List list, String encode)
+    public static List Inputstr2Str_list(InputStream in,List<String> list, String encode)
     {
 
         String str="";
@@ -28,10 +28,10 @@ public class Ins2Str {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in, encode));
 
             str = reader.readLine();
-            Log.i("str--",str);
+
             list = Arrays.asList(str.substring(1, str.length() - 1).split(","));
 
-            Log.i("--list--size",list.size()+"--");
+            Log.i("list--",list.size()+"---");
 
             return list;
         }

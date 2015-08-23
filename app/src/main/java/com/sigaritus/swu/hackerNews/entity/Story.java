@@ -1,11 +1,14 @@
 package com.sigaritus.swu.hackerNews.entity;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.Arrays;
 
 /**
  * Created by Administrator on 2015/8/5.
+ *
  */
-public class Story {
+public class Story extends DataSupport{
 
     private String by;
     //author

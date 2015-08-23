@@ -53,7 +53,6 @@ public class TopStroyListAdapter extends RecyclerView.Adapter<TopStroyListAdapte
         holder.title.setText(datas.get(position).getTitle());
         holder.author.setText(datas.get(position).getBy());
 
-
     }
 
     @Override
